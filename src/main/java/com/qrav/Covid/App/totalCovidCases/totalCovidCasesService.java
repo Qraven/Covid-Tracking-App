@@ -4,17 +4,22 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.qrav.Covid.App.PrivateKey;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class totalCovidCasesService {
 
+    @Autowired
+    PrivateKey privateKey;
+
     public String getTotalCovidCases() throws UnirestException {
         HttpResponse<JsonNode> jsonResponse = Unirest.get("https://covid-193.p.rapidapi.com/statistics?country=all")
                 .header("x-rapidapi-host", "covid-193.p.rapidapi.com")
-                .header("x-rapidapi-key", "0fab9d344bmsh9b31eff68954e63p1dc65bjsn5a4a922a3bd6")
+                .header("x-rapidapi-key", privateKey.getPRIVATEKEY())
                 .asJson();
 
         JSONArray jsonArray = jsonResponse.getBody().getArray();

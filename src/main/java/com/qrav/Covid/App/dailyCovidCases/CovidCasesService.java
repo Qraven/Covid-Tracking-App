@@ -6,6 +6,7 @@ import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.qrav.Covid.App.JsonNodeMapper;
+import com.qrav.Covid.App.PrivateKey;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,16 @@ import java.util.Date;
 @Service
 public class CovidCasesService {
 
+    @Autowired
+    PrivateKey privateKey;
+
     public String getCovidCases(String country) throws UnirestException {
 
         country = country.replace(' ', '-');
 
         HttpResponse<JsonNode> response = Unirest.get("https://covid-193.p.rapidapi.com/statistics?country="+country)
                 .header("x-rapidapi-host", "covid-193.p.rapidapi.com")
-                .header("x-rapidapi-key", "0fab9d344bmsh9b31eff68954e63p1dc65bjsn5a4a922a3bd6")
+                .header("x-rapidapi-key", privateKey.getPRIVATEKEY())
                 .asJson();
 
         JSONArray jsonArray = response.getBody().getArray();
