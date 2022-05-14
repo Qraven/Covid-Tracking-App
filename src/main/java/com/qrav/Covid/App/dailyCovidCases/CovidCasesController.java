@@ -1,8 +1,6 @@
 package com.qrav.Covid.App.dailyCovidCases;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CovidCasesController {
 
     @Autowired
-    CovidCasesService covidCasesService;
+    private CovidCasesService covidCasesService;
 
     @CrossOrigin("*")
     @RequestMapping("/cases")

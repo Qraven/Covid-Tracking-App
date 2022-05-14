@@ -1,22 +1,31 @@
 package com.qrav.Covid.App;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JsonNodeMapper {
 
-    public JSONObject convertToJSONObject(HttpResponse<JsonNode> response) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        JSONObject JSONresponse;
+    public String convertJsonResponseResponseToString(HttpResponse<JsonNode> jsonResponse) {
 
-        JSONresponse=new JSONObject(mapper.writeValueAsString(response));
+        JSONArray jsonArray = jsonResponse.getBody().getArray();
+        String active = "";
 
-        return JSONresponse;
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jOBJ = jsonArray.getJSONObject(i);
+            JSONArray jArray1 = jOBJ.getJSONArray("response");
+
+            for (int j = 0; j < jArray1.length(); j++) {
+                JSONObject jsonObject = jArray1.getJSONObject(j);
+                JSONObject jArray2 = jsonObject.getJSONObject("cases");
+
+                active = jArray2.getString("new");
+            }
+
+        }
+        return active;
     }
-
 }

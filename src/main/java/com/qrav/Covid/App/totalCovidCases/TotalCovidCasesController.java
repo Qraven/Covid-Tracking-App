@@ -11,7 +11,7 @@ public class TotalCovidCasesController {
 
 
     @Autowired
-    totalCovidCasesService totalCovidCasesService;
+    private totalCovidCasesService totalCovidCasesService;
 
     @CrossOrigin("*")
     @RequestMapping("totalCases")
